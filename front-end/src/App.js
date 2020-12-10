@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { useEffect } from 'react'
 import Home from './home'
 import store from './redux/configureStore'
 import { Provider } from 'react-redux'
@@ -16,36 +16,33 @@ const alertOptions = {
   position: positions.TOP_CENTER,
   transition: transitions.SCALE,
   timeout: 5000,
-  offset: '30px',
+  offset: '7px',
 
 }
 
-export class App extends Component {
-  componentDidMount() {
+const App = () => {
+  useEffect(() => {
     store.dispatch(loadUser())
-  }
+  }, [])
 
 
-  render() {
-    return (
-      <Provider store={store}>
-        <AlertProvider template={AlertTemplate} {...alertOptions}>
-          <>
-            <Router>
-              <Header />
-              <Switch>
-                <PrivateRoute exact path='/' component={Home} />
-                <Route exact path='/register' component={Register} />
-                <Route exact path='/login' component={Login} />
-              </Switch>
-            </Router>
-          </>
-        </AlertProvider>
-      </Provider>
-    )
-  }
+  return (
+    <Provider store={store}>
+      <AlertProvider template={AlertTemplate} {...alertOptions}>
+        <>
+          <Router>
+            <Header />
+            <Switch>
+              <PrivateRoute exact path='/' component={Home} />
+              <Route exact path='/register' component={Register} />
+              <Route exact path='/login' component={Login} />
+            </Switch>
+          </Router>
+        </>
+      </AlertProvider>
+    </Provider>
+  )
 }
-
 
 
 export default App

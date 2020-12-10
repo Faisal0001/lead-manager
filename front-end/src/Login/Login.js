@@ -1,55 +1,62 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import './css/Login.css'
 import { login } from '../redux/authReducer';
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import {useAlert} from 'react-alert'
 
-export class Login extends Component {
-	static propTypes = {
-		login: PropTypes.func.isRequired,
-		isAuthenticated: PropTypes.bool,
+
+
+export const Login = ({isAuthenticated, login}) => {
+	const [user, setUser] = useState({username: "", password: ""})
+	const alert = useAlert()
+
+	if (isAuthenticated) {
+		return <Redirect to='/' />
 	}
-	constructor(props) {
-		super(props)
+	const handleChange = (e) => setUser({...user, [e.target.name]: e.target.value })
 
-		this.state = {
-			username: "",
-			password: "",
-		}
+	const validateForm = () => {
+		const errors = []
+		if (!user.username) errors.push(alert.error('Name can not be empty.'))
+		if (!user.password) errors.push(alert.error('Password can not be empty.'))
+		if (errors.length > 0) {
+			return errors
+		} else return true
 	}
 
-	handleChange = (e) => this.setState({ [e.target.name]: e.target.value })
-
-	handleSubmit = (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault()
-		this.props.login(this.state)
+		if (validateForm() === true) {
+			login(user)
+			setUser({ username: '',  password: '' })
+		}
 	}
 
-	render() {
-		if (this.props.isAuthenticated) {
-			return <Redirect to='/' />
-		}
-		const { username, password } = this.state
-		return (
-			<div className='login'>
-				<div className="login__form">
-					<h2>Login</h2>
-					<form onSubmit={this.handleSubmit}>
-						<label htmlFor="username">Username</label>
-						<input type="text" name="username" id="username" value={username} onChange={this.handleChange} />
-						<label htmlFor="password">Password</label>
-						<input type="text" name="password" id="password" value={password} onChange={this.handleChange} />
-						<input type="submit" value='Log In' />
-						<div className="login__register">
-							<p>Don't have an account?</p>
-							<Link to='/register'><button>Register</button></Link>
-						</div>
-					</form>
-				</div>
+	return (
+		<div className='login'>
+			<div className="login__form">
+				<h2>Login</h2>
+				<form onSubmit={handleSubmit}>
+					<label htmlFor="username">Username</label>
+					<input type="text" name="username" id="username" value={user.username} onChange={handleChange} />
+					<label htmlFor="password">Password</label>
+					<input type="text" name="password" id="password" value={user.password} onChange={handleChange} />
+					<input type="submit" value='Log In' />
+					<div className="login__register">
+						<p>Don't have an account?</p>
+						<Link to='/register'><button>Register</button></Link>
+					</div>
+				</form>
 			</div>
-		)
-	}
+		</div>
+	)
+}
+
+Login.propTypes = {
+	login: PropTypes.func.isRequired,
+	isAuthenticated: PropTypes.bool,
 }
 
 const mapStateToProps = state => ({
@@ -60,4 +67,6 @@ const mapDispatchToProps = {
 	login: (user) => login(user)
 }
 
+
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
+

@@ -17,7 +17,7 @@ const initialState = {
 	},
 }
 
-export default (state = initialState, { type, payload }) => {
+const authReducer = (state = initialState, { type, payload }) => {
 	switch (type) {
 
 		case USER_LOADING:
@@ -33,7 +33,7 @@ export default (state = initialState, { type, payload }) => {
 				isLoading: false,
 				user: payload,
 			}
-
+		case USER_REGISTER:
 		case USER_LOGIN:
 			localStorage.setItem('token', payload.token)
 			return {
@@ -76,11 +76,14 @@ export default (state = initialState, { type, payload }) => {
 			return state
 	}
 }
+export default authReducer
+
 
 // ACTIONS
 
 // Load User
 export const loadUser = () => async (dispatch, getState) => {
+	dispatch({ type: USER_LOADING })
 	try {
 		const response = await axios.get('http://localhost:8000/api/auth/user', tokenConfig(getState))
 		const user = await response.data
@@ -88,36 +91,23 @@ export const loadUser = () => async (dispatch, getState) => {
 			type: USER_LOADED,
 			payload: user,
 		})
-		console.log('it workds')
 	} catch (error) {
 		dispatch(addError(error))
 	}
 }
 
 // Login
-export const login = (user) => async (dispatch, getState) => {
+export const login = (user) => (dispatch, getState) => {
 	dispatch({ type: USER_LOADING })
 	const body = JSON.stringify(user)
-	try {
-		const response = await axios.post('http://localhost:8000/api/auth/login', body, tokenConfig(getState))
-		const user = await response.data.user
-		const token = await response.data.token
-		dispatch({
-			type: USER_LOGIN,
-			payload: {
-				user,
-				token,
-			},
-		})
-	} catch (error) {
-		console.log(error)
-		dispatch(addError(error))
-	}
+	axios.post('http://localhost:8000/api/auth/login', body, tokenConfig(getState))
+		.then(response => {
+			dispatch({ type: USER_LOGIN, payload: response.data })
+		}).catch(error => dispatch(addError(error)))
 }
 
-// logout
+// Logout
 export const logout = () => (dispatch, getState) => {
-
 	axios.post('http://localhost:8000/api/auth/logout/', null, tokenConfig(getState))
 		.then(response => {
 			dispatch({ type: USER_LOGOUT })
@@ -126,8 +116,18 @@ export const logout = () => (dispatch, getState) => {
 			console.log(error.data)
 			addError(error)
 		})
-
 }
+
+// Register
+export const register = (user) => (dispatch, getState) => {
+	dispatch({ type: USER_LOADING })
+	const body = JSON.stringify(user)
+	axios.post('http://localhost:8000/api/auth/register', body, tokenConfig(getState))
+		.then(response => {
+			dispatch({ type: USER_REGISTER, payload: response.data })
+		}).catch(error => dispatch(addError(error)))
+}
+
 
 
 // HELPER FUNCTIONS

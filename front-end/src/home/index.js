@@ -1,19 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './css/index.css'
 import Leads from './Leads'
 import Form from './Form'
-import Alerts from '../shared/Alerts'
 
-export class index extends Component {
-	render() {
-		return (
-			<div className='index'>
-				<Form />
-				<Leads />
-				<Alerts />
-			</div>
-		)
-	}
+const index = () => {
+
+	return (
+		<div className='index'>
+			<Form />
+			<Leads />
+		</div>
+	)
 }
 
 export default index
