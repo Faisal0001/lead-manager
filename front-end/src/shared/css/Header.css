@@ -1,0 +1,60 @@
+.header {
+  background: linear-gradient(to right, rgb(223, 163, 163), rgb(77, 180, 221));
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+
+.header header {
+  max-width: 800px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+}
+
+.header header .user{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header header .user h3{
+  padding:  1rem;
+  padding-left: none;
+  font-size: 1.4rem;
+}
+.header header .user button{
+  padding:  .5rem .8rem;
+  border-radius: .3rem;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer
+}
+
+
+.header nav ul {
+  display: flex;
+  padding: 0.6rem;
+}
+
+.header .link {
+  text-decoration: none;
+}
+
+.header nav ul li {
+  list-style: none;
+  padding: 0.8rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  background-color: rgb(122, 80, 240);
+  border-radius: 0.8rem 2rem;
+  margin-right: 0.8rem;
+  color: white;
+}
+
+.header nav ul li:nth-child(2) {
+  margin-right: 0;
+  border-radius: 0.5rem 2rem;
+}

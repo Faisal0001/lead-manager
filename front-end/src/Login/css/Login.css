@@ -1,0 +1,75 @@
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 70vh;
+}
+
+.login__form {
+  max-width: 350px;
+	width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: linear-gradient(to right, rgb(221, 190, 190), rgb(181, 229, 252));
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+}
+
+.login__form h2 {
+  margin-top: 0.5rem;
+}
+
+.login__form form {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.login__form form label {
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.1rem;
+  padding: 0.3rem;
+  padding-left: 0;
+}
+.login__form form input {
+  font-size: 1rem;
+  padding: 0.5rem 0.7rem;
+  outline: none;
+  border: none;
+  border-radius: 0.3rem;
+}
+.login__form form input[type=submit] {
+  padding: .3rem 0;
+  margin: 1rem 0;
+  background-color: rgb(158, 142, 253);
+  color: white;
+  cursor: pointer;
+}
+.login__form form input[type=submit]:hover {
+	background-color: rgb(145, 126, 250);
+	transition: all .3s ease-out;
+}
+.login__register {
+  width: 100%;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+.login__register p {
+  font-size: 0.9rem;
+}
+.login__register button {
+  background-color: transparent;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 0 0.5rem;
+  padding-right: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: rgb(32, 53, 30);
+}
