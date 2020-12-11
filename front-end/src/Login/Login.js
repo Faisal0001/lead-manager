@@ -9,7 +9,7 @@ import {useAlert} from 'react-alert'
 
 
 export const Login = ({isAuthenticated, login}) => {
-	const [user, setUser] = useState({username: "", password: ""})
+	const [user, setUser] = useState({email: "", password: ""})
 	const alert = useAlert()
 
 	if (isAuthenticated) {
@@ -19,7 +19,7 @@ export const Login = ({isAuthenticated, login}) => {
 
 	const validateForm = () => {
 		const errors = []
-		if (!user.username) errors.push(alert.error('Name can not be empty.'))
+		if (!user.email) errors.push(alert.error('Email can not be empty.'))
 		if (!user.password) errors.push(alert.error('Password can not be empty.'))
 		if (errors.length > 0) {
 			return errors
@@ -30,7 +30,7 @@ export const Login = ({isAuthenticated, login}) => {
 		e.preventDefault()
 		if (validateForm() === true) {
 			login(user)
-			setUser({ username: '',  password: '' })
+			setUser({ email: '',  password: '' })
 		}
 	}
 
@@ -39,8 +39,8 @@ export const Login = ({isAuthenticated, login}) => {
 			<div className="login__form">
 				<h2>Login</h2>
 				<form onSubmit={handleSubmit}>
-					<label htmlFor="username">Username</label>
-					<input type="text" name="username" id="username" value={user.username} onChange={handleChange} />
+					<label htmlFor="email">Email</label>
+					<input type="email" name="email" id="email" value={user.email} onChange={handleChange} />
 					<label htmlFor="password">Password</label>
 					<input type="text" name="password" id="password" value={user.password} onChange={handleChange} />
 					<input type="submit" value='Log In' />

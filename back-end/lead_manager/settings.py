@@ -53,7 +53,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
 }
 
-AUTH_USER_MODEL = 'accounts.MyUser'
 
 MIDDLEWARE = [
     # Middlewares
@@ -87,6 +86,8 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTH_USER_MODEL = 'accounts.MyUser'
 
 WSGI_APPLICATION = 'lead_manager.wsgi.application'
 
