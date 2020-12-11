@@ -53,6 +53,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
 }
 
+AUTH_USER_MODEL = 'accounts.MyUser'
+
 MIDDLEWARE = [
     # Middlewares
     'corsheaders.middleware.CorsMiddleware',
